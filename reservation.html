@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>用餐预订确认 — 民间粮仓</title>
+<style>
+  :root{
+    --accent:#8a4b2a;       /* 中式暖木色 */
+    --muted:#7b6a5d;
+    --paper:#fffaf3;
+    --bg:#f5efe8;
+    --radius:14px;
+    font-family: "Noto Sans SC", "PingFang SC", "Microsoft Yahei", sans-serif;
+  }
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#f3ebe1);}
+  .wrap{max-width:820px;margin:28px auto;padding:20px;}
+  .card{
+    background:linear-gradient(180deg,var(--paper),#fff);
+    border-radius:18px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.08);
+    overflow:hidden;
+    border:1px solid rgba(138,75,42,0.06);
+  }
+  .hero{
+    display:flex;
+    gap:16px;
+    align-items:center;
+    padding:22px;
+    background:
+      radial-gradient(circle at 10% 10%, rgba(138,75,42,0.06), transparent 20%),
+      linear-gradient(90deg, rgba(138,75,42,0.04), transparent 40%);
+  }
+  .logo{
+    width:88px;height:88px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,#fff,#f7efe6);
+    box-shadow:0 6px 18px rgba(138,75,42,0.06);
+    border:1px solid rgba(138,75,42,0.08);
+    flex-shrink:0;
+  }
+  .logo img{
+    width:88px;height:88px;
+    object-fit:cover;
+  }
+  .brand{flex:1}
+  .brand h1{margin:0;font-size:18px;color:var(--accent);letter-spacing:1px;}
+  .brand p{margin:6px 0 0;color:var(--muted);font-size:13px;}
+  .content{padding:20px 22px 26px;}
+  .row{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px;}
+  .info{
+    flex:1 1 220px;
+    background:#fff;border-radius:12px;padding:12px;
+    border:1px dashed rgba(138,75,42,0.05);
+  }
+  .info h3{margin:0 0 8px;color:var(--accent);font-size:13px;}
+  .info p{margin:0;color:#4b4b4b;font-size:15px;}
+  .small{font-size:13px;color:var(--muted);margin-top:8px}
+  .buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:10px 14px;
+    border-radius:12px;background:var(--accent);color:#fff;text-decoration:none;
+    font-weight:600;box-shadow:0 6px 14px rgba(138,75,42,0.12);
+  }
+  .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(138,75,42,0.12);box-shadow:none;font-weight:600;}
+  .note{padding:14px 18px;border-top:1px solid rgba(0,0,0,0.03);background:linear-gradient(180deg,rgba(250,247,243,0.5),transparent);}
+  .footer{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;color:var(--muted);font-size:13px;}
+  .qr{width:86px;height:86px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;border:1px solid rgba(0,0,0,0.04)}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,#eee,transparent);margin:14px 0;}
+  /* responsive */
+  @media (max-width:520px){
+    .hero{padding:16px}
+    .logo{width:72px;height:72px}
+    .brand h1{font-size:16px}
+    .content{padding:14px}
+    .btn{padding:9px 12px}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-label="用餐预订确认函">
+      <!-- HERO -->
+      <div class="hero">
+        <div class="logo" id="logo">
+          <!-- 使用你的 GitHub 图片替换 SVG -->
+          <img src="https://raw.githubusercontent.com/Joane2523/nice/main/logo.png" alt="Logo">
+        </div>
+        <div class="brand">
+          <h1>MinJian Granary 民间粮仓 • 马来西亚首店</h1>
+          <p id="greeting">尊敬的贵宾，您好！我们已为您成功预订座位。</p>
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="content">
+        <div class="row">
+          <div class="info">
+            <h3>📅 用餐日期</h3>
+            <p id="date">2025年10月25日（星期六）</p>
+            <div class="small">🕛 <span id="time">18:30</span></div>
+          </div>
+
+          <div class="info">
+            <h3>👥 预订人数 / 包间</h3>
+            <p id="guests">8-10位贵宾</p>
+            <div class="small">🍽 餐位/包间编号：<strong id="table">V01</strong></div>
+          </div>
+
+          <div class="info">
+            <h3>📞 门店信息</h3>
+            <p>MinJian Granary 民间粮仓</p>
+            <p class="small">电话：<a id="phoneLink" href="tel:0173764861">017-3764861</a></p>
+            <p class="small">地址：查看导航或联系客服</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;">
+          <div style="flex:1;min-width:220px">
+            <h3 style="color:var(--accent);margin:0 0 10px">我们期待与您相聚</h3>
+            <p id="nameLine" style="margin:0 0 8px;font-size:15px;color:#333">致：<strong id="guestName">贵宾</strong></p>
+            <p style="margin:0;color:var(--muted)">若需更改人数或时间，请尽快联系我们以便为您调整座位安排。</p>
+
+            <div class="buttons" style="margin-top:14px">
+              <a class="btn" id="wazeBtn" href="#" target="_blank" rel="noopener noreferrer">🧭 一键导航</a>
+              <a class="btn" id="callBtn" href="tel:0173764861">📞 立即拨号</a>
+              <a class="btn ghost" id="printBtn" href="#">🖨 保存 / 列印 PDF</a>
+              <a class="btn ghost" id="shareBtn" href="#" onclick="navigator.share && navigator.share({title:document.title,text:'您的用餐预约',url:location.href});return false;">🔗 分享链接</a>
+            </div>
+          </div>
+
+          <div style="width:160px">
+            <div class="qr" id="qrBox" title="导航 QR（可替换为实际二维码）">
+              <svg width="86" height="86" viewBox="0 0 86 86" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="86" height="86" rx="8" fill="#fff" stroke="#eee"/>
+                <rect x="8" y="8" width="18" height="18" fill="#8a4b2a"/>
+                <rect x="40" y="8" width="10" height="10" fill="#8a4b2a"/>
+                <rect x="60" y="8" width="18" height="18" fill="#8a4b2a"/>
+                <rect x="8" y="40" width="10" height="10" fill="#8a4b2a"/>
+                <rect x="26" y="26" width="6" height="6" fill="#8a4b2a"/>
+                <rect x="48" y="48" width="30" height="30" fill="#eae1d8"/>
+                <rect x="56" y="56" width="8" height="8" fill="#8a4b2a"/>
+              </svg>
+            </div>
+            <p style="margin:8px 0 0;font-size:12px;color:var(--muted)">扫码 / 点击导航 (Waze)</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <p style="margin:0;color:var(--muted);font-size:13px">
+            停车信息：本店设有停车场，建议使用停车场停放；路边停车可能被贴罚单。若需要代客泊车或有其他特殊需求，请在到店前来电告知。
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>店长签名：<strong style="color:var(--accent)">民间粮仓 店长</strong></div>
+        <div style="text-align:right;color:var(--muted);font-size:12px">门店电话：017-3764861</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const CONFIG = {
+  waze: "https://waze.com/ul?a=share_drive&locale=en&sd=PGxZA1T-aQKbf-sTgg-sd&env=row&utm_source=waze_app&utm_campaign=share_drive",
+  phone: "0173764861",
+  defaultName: "贵宾",
+  defaultDate: "2025年10月25日（星期六）",
+  defaultTime: "18:30",
+  defaultGuests: "8-10位贵宾",
+  defaultTable: "V01"
+};
+
+function getParam(k){ const params = new URLSearchParams(window.location.search); return params.get(k) || ""; }
+function safeText(s){ return s ? decodeURIComponent(s) : ""; }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const name = getParam('name') || CONFIG.defaultName;
+  const date = getParam('date') || CONFIG.defaultDate;
+  const time = getParam('time') || CONFIG.defaultTime;
+  const guests = getParam('guests') || CONFIG.defaultGuests;
+  const table = getParam('table') || CONFIG.defaultTable;
+
+  document.getElementById('guestName').textContent = safeText(name);
+  document.getElementById('nameLine').innerHTML = "致：<strong id='guestName2'>"+safeText(name)+"</strong>";
+  document.getElementById('date').textContent = safeText(date);
+  document.getElementById('time').textContent = safeText(time);
+  document.getElementById('guests').textContent = safeText(guests);
+  document.getElementById('table').textContent = safeText(table);
+
+  const wazeBtn = document.getElementById('wazeBtn');
+  wazeBtn.href = CONFIG.waze;
+  wazeBtn.setAttribute('aria-label','打开 Waze 导航');
+
+  document.getElementById('callBtn').href = "tel:" + CONFIG.phone;
+  document.getElementById('phoneLink').href = "tel:" + CONFIG.phone;
+
+  document.getElementById('printBtn').addEventListener('click', (e)=>{
+    e.preventDefault();
+    window.print();
+  });
+
+  if(!navigator.share){
+    document.getElementById('shareBtn').style.display = 'none';
+  }
+});
+</script>
+</body>
+</html>
